@@ -1,0 +1,491 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 215 50% 98.5%;
+    --foreground: 215 45% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 45% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 45% 12%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 30% 96%;
+    --secondary-foreground: 215 45% 18%;
+
+    --muted: 214 25% 94%;
+    --muted-foreground: 215 12% 44%;
+
+    --accent: 215 30% 94%;
+    --accent-foreground: 215 45% 15%;
+
+    --destructive: 350 82% 58%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 160 84% 39%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --info: 190 90% 45%; /* Electric Cyan */
+    --info-foreground: 0 0% 100%;
+
+    --border: 214 25% 90%;
+    --input: 214 25% 90%;
+    --ring: 221 83% 53%;
+
+    --radius: 1rem; /* More rounded premium feel */
+
+    /* Sidebar — Sophisticated Deep Navy/Black */
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 215 20% 75%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 40% 16%;
+    --sidebar-accent-foreground: 215 25% 95%;
+    --sidebar-border: 222 30% 18%;
+    --sidebar-ring: 217 91% 60%;
+    --sidebar-muted: 222 25% 35%;
+
+    /* Brand scale */
+    --brand-50: 214 100% 98%;
+    --brand-100: 214 95% 94%;
+    --brand-200: 213 97% 88%;
+    --brand-300: 212 96% 79%;
+    --brand-400: 213 94% 69%;
+    --brand-500: 221 83% 53%;
+    --brand-600: 224 76% 48%;
+    --brand-700: 226 71% 40%;
+    --brand-800: 224 64% 33%;
+    --brand-900: 222 47% 11%;
+
+    --font-heading: 'Manrope', system-ui, sans-serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.4);
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/70 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+
+  .stat-card {
+    @apply bg-card rounded-[--radius] p-5 lg:p-6 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  }
+
+  .stat-card::before {
+    content: '';
+    @apply absolute left-0 top-0 w-1 h-full opacity-0 transition-opacity;
+    background: hsl(var(--primary));
+  }
+
+  .stat-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .stat-card:hover {
+    box-shadow: 0 20px 25px -5px rgb(0 88 190 / 0.08), 0 8px 10px -6px rgb(0 88 190 / 0.08);
+  }
+
+  .gradient-blue {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  }
+
+  .gradient-cyan {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  }
+
+  .gradient-emerald {
+    background: linear-gradient(135deg, hsl(160 72% 38%), hsl(158 64% 32%));
+  }
+
+  .gradient-amber {
+    background: linear-gradient(135deg, hsl(38 92% 50%), hsl(32 95% 44%));
+  }
+
+  .gradient-rose {
+    background: linear-gradient(135deg, hsl(0 72% 51%), hsl(349 72% 42%));
+  }
+
+  .gradient-sidebar {
+    background: linear-gradient(180deg, hsl(215 50% 16%) 0%, hsl(215 55% 11%) 100%);
+  }
+
+  .gradient-header-blue {
+    background: linear-gradient(135deg, hsl(214 100% 97%) 0%, hsl(213 97% 93%) 100%);
+  }
+
+  .status-present {
+    @apply bg-emerald-50 text-emerald-700 border-emerald-200;
+  }
+
+  .status-absent {
+    @apply bg-red-50 text-red-700 border-red-200;
+  }
+
+  .status-permission {
+    @apply bg-amber-50 text-amber-700 border-amber-200;
+  }
+
+  .status-disability {
+    @apply bg-blue-50 text-blue-700 border-blue-200;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #2563eb, #1d4ed8);
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    @apply font-[--font-heading] tracking-tight;
+  }
+
+  /* Active nav indicator */
+  .nav-active {
+    @apply relative;
+  }
+
+  .nav-active::before {
+    content: '';
+    @apply absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full;
+    background: hsl(var(--sidebar-primary));
+  }
+
+  /* Mobile Performance Optimizations */
+  @media (max-width: 768px) {
+    .glass-card {
+      @apply backdrop-blur-sm bg-card/90; /* Reduced blur and higher opacity for better performance */
+    }
+    
+    .stat-card:hover {
+      @apply transform-none; /* Disable hover transform on touch devices to avoid lag */
+      box-shadow: 0 10px 15px -3px rgb(0 88 190 / 0.05);
+    }
+
+    * {
+      @apply transition-none !important; /* Disable transitions globally on core elements if needed, but let's start subtle */
+    }
+    
+    /* Improve touch targets for links and buttons */
+    a, button {
+      @apply min-h-[44px] min-w-[44px] inline-flex items-center justify-center;
+    }
+  }
+}
+
+/* Custom animations */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes count-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out forwards;
+}
+
+.animate-fade-scale {
+  animation: fade-scale 0.3s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 25%, hsl(var(--border)) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Stagger children */
+.stagger-children > * {
+  animation: slide-up 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 250ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 350ms; }
+
+/* Print Styles for Receipts */
+@media print {
+  /* Force color printing */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Reset page margins — tight to fit on one page */
+  @page {
+    size: letter;
+    margin: 8mm 10mm;
+  }
+
+  /* Base body */
+  html, body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Hide the entire React app (sidebar, header, main content, etc.) */
+  #root {
+    display: none !important;
+  }
+
+  /* Hide the dialog overlay (dark backdrop) — multiple selectors for compat */
+  [data-radix-dialog-overlay],
+  [data-state][class*="fixed"][class*="inset-0"],
+  [class*="bg-black"] {
+    display: none !important;
+  }
+
+  /* Hide the dialog header (has the print button) and close X */
+  .print\:hidden {
+    display: none !important;
+  }
+  [role="dialog"] > button[class*="absolute"] {
+    display: none !important;
+  }
+
+  /* Reset dialog content from fixed/centered to normal page flow */
+  [role="dialog"] {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    height: auto !important;
+    transform: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: white !important;
+    overflow: visible !important;
+    animation: none !important;
+    opacity: 1 !important;
+    z-index: auto !important;
+    inset: auto !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  /* The printable receipt area */
+  .receipt-printable {
+    width: 100% !important;
+    max-width: 700px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  /* Preserve font sizes in the receipt — scaled down to fit one page */
+  .receipt-printable .text-xl { font-size: 1.1rem !important; }
+  .receipt-printable .text-sm { font-size: 0.75rem !important; }
+  .receipt-printable .text-xs { font-size: 0.65rem !important; }
+  .receipt-printable .text-3xl { font-size: 1.5rem !important; }
+  .receipt-printable .text-\[10px\] { font-size: 9px !important; }
+
+  /* Font weight */
+  .receipt-printable .font-bold { font-weight: 700 !important; }
+  .receipt-printable .font-semibold { font-weight: 600 !important; }
+  .receipt-printable .font-medium { font-weight: 500 !important; }
+  .receipt-printable .font-mono { font-family: 'JetBrains Mono', monospace !important; }
+
+  /* Colors */
+  .receipt-printable { color: #1a1a2e !important; }
+  .receipt-printable .text-success { color: #059669 !important; }
+  .receipt-printable .text-destructive { color: #dc2626 !important; }
+  .receipt-printable .text-orange-600 { color: #ea580c !important; }
+  .receipt-printable .text-muted-foreground { color: #6b7280 !important; }
+
+  /* Tables — match on-screen appearance (no forced borders) */
+  .receipt-printable table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  .receipt-printable th {
+    padding: 4px 6px !important;
+    font-weight: 500 !important;
+    font-size: 0.65rem !important;
+    color: #6b7280 !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    background: transparent !important;
+  }
+
+  .receipt-printable td {
+    padding: 5px 6px !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    color: inherit !important;
+    background: transparent !important;
+  }
+
+  .receipt-printable tr.border-t-2 td {
+    border-top: 2px solid #1a1a2e !important;
+  }
+
+  /* The "total a pagar" box */
+  .receipt-printable .bg-primary\/5 {
+    background-color: #f0f4ff !important;
+    border: 2px solid #d0d8f0 !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+  }
+
+  /* Borders for section dividers */
+  .receipt-printable .border-b-2 {
+    border-bottom: 2px solid #1a1a2e !important;
+  }
+
+  .receipt-printable .border-t {
+    border-top: 1px solid #e5e7eb !important;
+  }
+
+  /* Signature lines */
+  .receipt-printable .border-t.border-foreground {
+    border-top: 1px solid #1a1a2e !important;
+  }
+
+  /* Grid layout */
+  .receipt-printable .grid-cols-2 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Text alignment */
+  .receipt-printable .text-center { text-align: center !important; }
+  .receipt-printable .text-right { text-align: right !important; }
+
+  /* Spacing — tighter for one-page fit */
+  .receipt-printable .space-y-4 > * + * { margin-top: 0.6rem !important; }
+  .receipt-printable .space-y-1 > * + * { margin-top: 0.15rem !important; }
+  .receipt-printable .gap-2 { gap: 0.35rem !important; }
+  .receipt-printable .gap-4 { gap: 0.6rem !important; }
+  .receipt-printable .gap-8 { gap: 1.2rem !important; }
+  .receipt-printable .mb-1 { margin-bottom: 0.15rem !important; }
+  .receipt-printable .mb-2 { margin-bottom: 0.3rem !important; }
+  .receipt-printable .mt-1 { margin-top: 0.15rem !important; }
+  .receipt-printable .mt-2 { margin-top: 0.3rem !important; }
+  .receipt-printable .mt-4 { margin-top: 0.6rem !important; }
+  .receipt-printable .pb-4 { padding-bottom: 0.6rem !important; }
+  .receipt-printable .pt-2 { padding-top: 0.3rem !important; }
+  .receipt-printable .pt-8 { padding-top: 1.2rem !important; }
+  .receipt-printable .p-4 { padding: 0.6rem !important; }
+
+  /* Uppercase + tracking */
+  .receipt-printable .uppercase { text-transform: uppercase !important; }
+  .receipt-printable .tracking-wide { letter-spacing: 0.05em !important; }
+
+  /* Flex alignment for header icon + title */
+  .receipt-printable .flex { display: flex !important; }
+  .receipt-printable .items-center { align-items: center !important; }
+  .receipt-printable .justify-center { justify-content: center !important; }
+
+  /* Avoid page breaks inside receipt sections */
+  .receipt-printable > div {
+    page-break-inside: avoid;
+  }
+}
